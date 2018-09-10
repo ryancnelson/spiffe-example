@@ -73,7 +73,7 @@ EOF
 
 
 #----- likewise, replace the nginx fe conf file:
-cat << EOF > /usr/local/nginx/nginx_blog.conf
+cat << EOF > /usr/local/nginx/nginx_fe.conf
 daemon off;
 user root;
 pid /root/nginx.pid;
