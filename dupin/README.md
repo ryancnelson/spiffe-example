@@ -4,7 +4,7 @@ We will demonstrate how we integrated NGINX and SPIRE. First, we built an NGINX 
 
 Here’s a quick video taking you through the details. If you’re interested in more, keep reading below the video.
 
-[Video: Securing NGINX microservices with SPIFFE]()
+FIX THIS VIDEO LINK ---> [Video: Securing NGINX microservices with SPIFFE]()
 
 The video above shows the aforementioned, simulating the presence of a front-end server proxying the connections to a blog service:
 
@@ -85,6 +85,8 @@ proxy_ssl_spiffe_accept spiffe://example.org/host/blog;
 
 ```
 daemon off;
+user root;
+pid /root/nginx.pid;
 worker_processes 1;
 error_log /dev/stdout debug;
 events {
@@ -97,27 +99,21 @@ http {
     server_name localhost;
 
     # Fetch SVIDs
-    # Socket path of SPIRE Agent
     ssl_spiffe_sock       /tmp/agent.sock;
-
-    # File path to store SVID in PEM format
-    svid_file_path        /certs/front_end_svid.pem;
-
-    # File path to store SVID Private Key in PEM format
-    svid_key_file_path    /certs/front_end_svid_key.pem;
-
-    # File path to store SVID Bundle (CA certificates belonging to the Trust Domain) in PEM format
-    svid_bundle_file_path /certs/front_end_svid_bundle.pem;
+## these are no longer used in the updated version of this demo:
+## files aren't stored on-disk
+##    svid_file_path        /certs/front_end_svid.pem;
+##    svid_key_file_path    /certs/front_end_svid_key.pem;
+##    svid_bundle_file_path /certs/front_end_svid_bundle.pem;
 
     proxy_ssl_verify              on;
-    proxy_ssl_certificate         /certs/front_end_svid.pem;
-    proxy_ssl_certificate_key     /certs/front_end_svid_key.pem;
-    proxy_ssl_trusted_certificate /certs/front_end_svid_bundle.pem;
+## these are no longer used in the updated version of this demo:
+## files aren't stored on-disk
+##    proxy_ssl_certificate         /certs/front_end_svid.pem;
+##    proxy_ssl_certificate_key     /certs/front_end_svid_key.pem;
+##    proxy_ssl_trusted_certificate /certs/front_end_svid_bundle.pem;
 
-    # Enable or disable validation of SPIFFE ID of proxied HTTPS server
     proxy_ssl_spiffe on;
-
-    # List of SPIFFE IDs to accept from proxied server
     proxy_ssl_spiffe_accept spiffe://example.org/host/blog;
 
     location / {
@@ -133,6 +129,9 @@ http {
 
 ```
 daemon off;
+## pid /certs/nginx.pid;
+user nginx-blog;
+pid /home/nginx-blog/nginx.pid;
 worker_processes 1;
 error_log /dev/stdout debug;
 events {
@@ -145,27 +144,23 @@ http {
     server_name  localhost;
 
     # Fetch SVIDs
-    # Socket path of SPIRE Agent
     ssl_spiffe_sock       /tmp/agent.sock;
-
-    # File path to store SVID in PEM format
-    svid_file_path        /certs/blog_svid.pem;
-
-    # File path to store SVID Private Key in PEM format
-    svid_key_file_path    /certs/blog_svid_key.pem;
-
-    # File path to store SVID Bundle (CA certificates belonging to the Trust Domain) in PEM format
-    svid_bundle_file_path /certs/blog_svid_bundle.pem;
+## these are no longer used in the updated version of this demo:
+## files aren't stored on-disk
+    ## svid_file_path        /certs/blog_svid.pem;
+    ## svid_key_file_path    /certs/blog_svid_key.pem;
+    ## svid_bundle_file_path /certs/blog_svid_bundle.pem;
+## now, we just use "ssl on;", and keep the certs in-memory
+    ssl on;
 
     ssl_verify_client on;
-    ssl_certificate         /certs/blog_svid.pem;
-    ssl_certificate_key     /certs/blog_svid_key.pem;
-    ssl_client_certificate  /certs/blog_svid_bundle.pem;
+## these are no longer used in the updated version of this demo:
+## files aren't stored on-disk
+    ## ssl_certificate         /certs/blog_svid.pem;
+    ## ssl_certificate_key     /certs/blog_svid_key.pem;
+    ## ssl_client_certificate  /certs/blog_svid_bundle.pem;
 
-    # Enable or disable SPIFFE ID validation of clients in HTTPS servers
     ssl_spiffe on;
-
-    # List of SPIFFE IDs to accept from client's certificate
     ssl_spiffe_accept spiffe://example.org/host/front-end;
 
     location / {
@@ -176,7 +171,7 @@ http {
 }
 ```
 
-## Let’s try it!
+## Let's try it!
 
 To try this yourself, clone the [spiffe-example](https://github.com/spiffe/spiffe-example) repository and follow the steps below:
 
