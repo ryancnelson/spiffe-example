@@ -21,7 +21,7 @@ For this integration with SPIFFE, NGINX was modified to natively support the Wor
 | ngx_http_proxy_module   | Add configuration directives for SPIFFE ID validation of proxied HTTPS servers: <ul><li>`proxy_ssl_spiffe`</li><li>`proxy_ssl_spiffe_accept`</li></ul> |
 | ngx_http_upstream | Accept or reject proxied connections to servers based on allowed SPIFFE IDs for the servers, specified in `proxy_ssl_spiffe_accept`. |
 | ngx_http_request | Accept or reject client connections based on allowed SPIFFE IDs for clients, specified in `ssl_spiffe_accept`. |
-| ngx_http_proxy_module   | New module that interacts with the Workload API to receive X.509-SVIDs in a gRPC stream and store them on disk. Add the following configuration directives to specify the SPIFFE Workload Endpoint address and the paths to store the certificates: <ul><li>`ssl_spiffe_sock`</li><li>`svid_file_path`</li><li>`svid_key_file_path`</li><li>`svid_bundle_file_path`</li></ul> |
+| ngx_http_proxy_module   | New module that interacts with the Workload API to receive X.509-SVIDs in a gRPC stream and store them in-memory. Added the following configuration directive to specify the SPIFFE Workload Endpoint address. <ul><li>`ssl_spiffe_sock`</li></ul> |
 
 ## Sample scenario
 
