@@ -5,6 +5,7 @@ We will demonstrate how we integrated NGINX and SPIRE. First, we built an NGINX 
 Here’s a quick video taking you through the details. If you’re interested in more, keep reading below the video.
 
 [hi-res Video: Securing NGINX microservices with SPIFFE](https://ryan.net/misc/spire-final-demo-cut-1229am-sep13--2875x2085.mp4)
+
 [low-res Video: Securing NGINX microservices with SPIFFE](http://ryan.net/misc/spire-demo-output_800.mp4)
 
 The video above shows the aforementioned, simulating the presence of a front-end server proxying the connections to a blog service:
