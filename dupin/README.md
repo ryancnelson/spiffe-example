@@ -239,8 +239,9 @@ We are now ready to run SPIRE Agent using the previously generated Join Token:
 SPIRE Server and SPIRE Agent are now running and ready to attest our workloads and generate the corresponding SVIDs. The environment is already provisioned with sample configuration files for the NGINX front-end and the NGINX blog servers. The `nginx-blog` terminal can be used to launch the NGINX acting as a blog:
 
 ``` shell
-/opt/spiffe-nginx# su -c "./nginx -c /usr/local/nginx/nginx_blog.conf" nginx-blog
+/opt/spiffe-nginx# ./nginx -c /usr/local/nginx/nginx_blog.conf
 ```
+the NGINX config specifies to change user to "nginx-blog" user, so this server will run as UID 1000.
 
 In the same way, we use the `nginx-fe` terminal to launch the NGINX server acting as a front-end that proxies the connections to the blog:
 
