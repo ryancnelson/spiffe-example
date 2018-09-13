@@ -21,7 +21,7 @@ For this integration with SPIFFE, NGINX was modified to natively support the Wor
 | ngx_http_proxy_module   | Add configuration directives for SPIFFE ID validation of proxied HTTPS servers: <ul><li>`proxy_ssl_spiffe`</li><li>`proxy_ssl_spiffe_accept`</li></ul> |
 | ngx_http_upstream | Accept or reject proxied connections to servers based on allowed SPIFFE IDs for the servers, specified in `proxy_ssl_spiffe_accept`. |
 | ngx_http_request | Accept or reject client connections based on allowed SPIFFE IDs for clients, specified in `ssl_spiffe_accept`. |
-| ngx_http_proxy_module   | New module that interacts with the Workload API to receive X.509-SVIDs in a gRPC stream and store them on disk. Add the following configuration directives to specify the SPIFFE Workload Endpoint address and the paths to store the certificates: <ul><li>`ssl_spiffe_sock`</li><li>`svid_file_path`</li><li>`svid_key_file_path`</li><li>`svid_bundle_file_path`</li></ul> |
+| ngx_http_proxy_module   | New module that interacts with the Workload API to receive X.509-SVIDs in a gRPC stream and store them in-memory. Added the following configuration directive to specify the SPIFFE Workload Endpoint address. <ul><li>`ssl_spiffe_sock`</li></ul> |
 
 ## Sample scenario
 
@@ -239,8 +239,9 @@ We are now ready to run SPIRE Agent using the previously generated Join Token:
 SPIRE Server and SPIRE Agent are now running and ready to attest our workloads and generate the corresponding SVIDs. The environment is already provisioned with sample configuration files for the NGINX front-end and the NGINX blog servers. The `nginx-blog` terminal can be used to launch the NGINX acting as a blog:
 
 ``` shell
-/opt/spiffe-nginx# su -c "./nginx -c /usr/local/nginx/nginx_blog.conf" nginx-blog
+/opt/spiffe-nginx# ./nginx -c /usr/local/nginx/nginx_blog.conf
 ```
+the NGINX config specifies to change user to "nginx-blog" user, so this server will run as UID 1000.
 
 In the same way, we use the `nginx-fe` terminal to launch the NGINX server acting as a front-end that proxies the connections to the blog:
 
