@@ -182,7 +182,8 @@ To try this yourself, clone the [spiffe-example](https://github.com/spiffe/spiff
 - macOS or Linux system
 - [Docker](https://docs.docker.com/install/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
-- [GNU Screen](https://www.gnu.org/software/screen/)
+- [GNU Screen](https://www.gnu.org/software/screen/) (note that MacOS ships with a very old 4.00.x version of screen, which will not work for the screen-splitting features of this demo. Homebrew users can "brew install screen" to get ~ 4.06.x, which should work)
+
 
 ### Step 1: Build the example
 
