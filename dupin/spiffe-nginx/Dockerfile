@@ -11,8 +11,10 @@ ENV DEBUG        "$DEBUG"
 ENV SPIRE_GOOPTS "$SPIRE_GOOPTS"
 
 RUN apt-get update && apt-get -y install \
-    curl unzip git build-essential autoconf automake dh-autoreconf libtool pkg-config g++ \
+    curl unzip git dh-autoreconf libtool pkg-config g++ \
     nano vim
+###old###  curl unzip git build-essential autoconf automake dh-autoreconf libtool pkg-config g++ \
+
 
 ENV GOPATH=/root/go
 
