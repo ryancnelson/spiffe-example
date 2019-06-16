@@ -11,8 +11,9 @@ ENV DEBUG        "$DEBUG"
 ENV SPIRE_GOOPTS "$SPIRE_GOOPTS"
 
 RUN apt-get update && apt-get -y install \
-    curl unzip git dh-autoreconf libtool pkg-config g++ \
-    nano vim
+    curl unzip git 
+## dh-autoreconf libtool pkg-config g++ \
+## old ###    nano vim
 ###old###  curl unzip git build-essential autoconf automake dh-autoreconf libtool pkg-config g++ \
 
 
